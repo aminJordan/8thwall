@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>A-Frame: Image Targets Example</title>
+  <script crossorigin="anonymous" src="../external/scripts/8frame-1.5.0.min.js"></script>
+  <script crossorigin="anonymous" src="../external/xrextras/xrextras.js"></script>
+  <script crossorigin="anonymous" src="../external/landing-page/landing-page.js"></script>
+  <script crossorigin="anonymous" src="../external/xr/xr.js" async="true" data-preload-chunks="slam"></script>
+  <meta name="8thwall:renderer" content="aframe:1.5.0" />
+  <meta name="8thwall:package" content="@8thwall.xrextras" />
+  <meta name="8thwall:package" content="@8thwall.landing-page" />
+</head>
+<body>
+  <a-scene xrextras-gesture-detector landing-page xrextras-loading xrextras-runtime-error
+    renderer="colorManagement:true" xrweb="disableWorldTracking: true">
+    <a-assets>
+      <a-asset-item id="jelly-glb" src="assets/jellyfish-model.glb"></a-asset-item>
+      <img id="jelly-thumb" src="targets/video-target.jpg">
+      <video id="jelly-video" autoplay muted playsinline webkit-playsinline crossorigin="anonymous" loop="true" src="assets/jellyfish-video.mp4">
+      </video>
+      <img id="notopia-thumb" src="targets/notopia_thumbnail.jpg">
+      <video id="notopia-video" autoplay playsinline webkit-playsinline crossorigin="anonymous" loop="true" src="assets/notopia-video.mp4">
+      </video>
+    </a-assets>
+    <a-camera position="0 4 10" raycaster="objects: .cantap" cursor="fuse: false; rayOrigin: mouse;">
+    </a-camera>
+    <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+    <a-light type="ambient" intensity="1"></a-light>
+    <xrextras-named-image-target name="video-target">
+      <a-entity xrextras-play-video="video: #jelly-video; thumb: #jelly-thumb; canstop: true"
+        geometry="primitive: plane; height: 1; width: 0.79;"></a-entity>
+    </xrextras-named-image-target>
+    <xrextras-named-image-target name="model-target">
+      <a-entity xrextras-one-finger-rotate gltf-model="#jelly-glb"></a-entity>
+    </xrextras-named-image-target>
+    <xrextras-named-image-target name="notopia">
+      <a-entity xrextras-play-video="video: #notopia-video; thumb: #notopia-thumb; canstop: true"
+        geometry="primitive: plane; height: 1; width: 1;"
+        ></a-entity>
+    </xrextras-named-image-target>
+  </a-scene>
+  <script>
+    const onxrloaded = async () => {
+      try {
+        const modelTarget = await fetch('targets/model-target.json').then(r => r.json());
+        const videoTarget = await fetch('targets/video-target.json').then(r => r.json());
+        const notopiaTarget = await fetch('targets/notopia.json').then(r => r.json());
+
+        XR8.XrController.configure({
+          imageTargetData: [modelTarget, videoTarget, notopiaTarget],
+        });
+        console.log('XR8 configured successfully');
+      } catch (error) {
+        console.error('Error loading targets:', error);
+      }
+    };
+    
+    window.XR8 ? onxrloaded() : window.addEventListener('xrloaded', onxrloaded);
+  </script>
+</body>
+</html>

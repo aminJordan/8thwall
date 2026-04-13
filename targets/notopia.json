@@ -1,0 +1,23 @@
+{
+  "imagePath": "targets/notopia_luminance.jpg",
+  "metadata": null,
+  "name": "notopia",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 509,
+    "width": 1539,
+    "height": 2052,
+    "isRotated": true,
+    "originalWidth": 2048,
+    "originalHeight": 2052
+  },
+  "resources": {
+    "originalImage": "notopia_original.jpg",
+    "croppedImage": "notopia_cropped.jpg",
+    "thumbnailImage": "notopia_thumbnail.jpg",
+    "luminanceImage": "notopia_luminance.jpg"
+  },
+  "created": 1776076263442,
+  "updated": 1776076263442
+}

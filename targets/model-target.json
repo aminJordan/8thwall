@@ -1,0 +1,15 @@
+{
+  "imagePath": "targets/model-target.jpg",
+  "metadata": {},
+  "name": "model-target",
+  "type": "PLANAR",
+  "properties": {
+    "left": 0,
+    "top": 0,
+    "width": 480,
+    "height": 640,
+    "originalWidth": 995,
+    "originalHeight": 1326,
+    "isRotated": false
+  }
+}
